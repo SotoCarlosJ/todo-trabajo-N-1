@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { ToDoItem } from '../ToDoItem/ToDoItem';
 
 // estado = tareas[]
 // estado = form {}
@@ -15,6 +16,25 @@ import React from 'react';
 */
 
 const ToDo = () => {
+    const [tasks, setTasks] = useState([])
+    const [form, setForm] = useState({
+        task: ""
+    });
+    
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setForm({
+            [name]: value
+        });
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        let tasksList = null;
+        const hasTask = tasks.includes(form.task);
+        !hasTask ? (tasksList = [...tasks, form.task], setTasks(tasksList)) : alert('tarea ya agregada');
+    };
+
     return (
         <div>
             <h1>To Do List</h1>
@@ -22,32 +42,13 @@ const ToDo = () => {
             <section>
                 <h2>List</h2>
                 <ul>
-                    <div
-                    style={{
-                        display: "flex",
-                        width: "300px",
-                        justifyContent: "space-between",
-                        border: "1px solid white",
-                        alignItems: "center",
-                        borderRadius: "5px",
-                        padding: "5px"              
-                        }}>
-                        <input type="checkbox" name="" id=""/>
-                        <li>Item 1</li>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column"
-                        }}>
-                            <button>Delete</button>
-                            <button>Edit</button>
-                        </div>
-                    </div>
+                    {tasks.map(task => <ToDoItem task={task} key={task}/>)}
                 </ul>
             </section>
 
             <section>
-                <form>
-                    <input type="text" name="" id=""/>
+                <form onSubmit={(e) => handleSubmit(e)}>
+                    <input type="text" name="task" id="task" value={form.task} onChange={(e) => handleChange(e)}/>
                     <button>Add</button>
                 </form>
             </section>
