@@ -35,6 +35,13 @@ const ToDo = () => {
         !hasTask ? (tasksList = [...tasks, form.task], setTasks(tasksList)) : alert('tarea ya agregada');
     };
 
+    const handleDelete = (param) => {
+        const taskIndex = tasks.indexOf(param);
+        const newTasks = [...tasks];
+        newTasks.splice(taskIndex, 1);
+        setTasks(newTasks);
+    };
+
     return (
         <div>
             <h1>To Do List</h1>
@@ -42,7 +49,7 @@ const ToDo = () => {
             <section>
                 <h2>List</h2>
                 <ul>
-                    {tasks.map(task => <ToDoItem task={task} key={task}/>)}
+                    {tasks.map(task => <ToDoItem task={task} key={task} handleDelete={handleDelete}/>)}
                 </ul>
             </section>
 

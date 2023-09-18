@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ToDoItem = ({ task }) => {
+const ToDoItem = ({ task, handleDelete }) => {
     return (
         <div
         style={{
@@ -18,7 +18,7 @@ const ToDoItem = ({ task }) => {
                 display: "flex",
                 flexDirection: "column"
             }}>
-                <button>Delete</button>
+                <button onClick={() => handleDelete(task)}>Delete</button>
                 <button>Edit</button>
             </div>
         </div>      
