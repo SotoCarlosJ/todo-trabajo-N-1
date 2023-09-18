@@ -35,6 +35,17 @@ const ToDo = () => {
         !hasTask ? (tasksList = [...tasks, form.task], setTasks(tasksList)) : alert('tarea ya agregada');
     };
 
+    const handleEdit = (param) => {
+        let taskEdit = prompt('Edita la tarea desde aca');
+        const hasTask = tasks.includes(taskEdit);
+        if(!hasTask) {
+            const taskIndex = tasks.indexOf(param);
+            const newTasks = [...tasks];
+            newTasks[taskIndex] = taskEdit;
+            setTasks(newTasks);
+        } else alert('tarea repetida');
+    };
+
     const handleDelete = (param) => {
         const taskIndex = tasks.indexOf(param);
         const newTasks = [...tasks];
@@ -49,14 +60,14 @@ const ToDo = () => {
             <section>
                 <h2>List</h2>
                 <ul>
-                    {tasks.map(task => <ToDoItem task={task} key={task} handleDelete={handleDelete}/>)}
+                    {tasks.map(task => <ToDoItem task={task} key={task} handleEdit={handleEdit} handleDelete={handleDelete}/>)}
                 </ul>
             </section>
 
             <section>
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <input type="text" name="task" id="task" value={form.task} onChange={(e) => handleChange(e)}/>
-                    <button>Add</button>
+                    <button type='submit'>Add</button>
                 </form>
             </section>
         </div>
