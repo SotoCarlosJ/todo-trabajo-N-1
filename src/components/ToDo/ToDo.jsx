@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ToDoList } from '../ToDoList/ToDoList';
 import { ToDoItem } from '../ToDoItem/ToDoItem';
 
 // estado = tareas[]
@@ -59,9 +60,9 @@ const ToDo = () => {
 
             <section>
                 <h2>List</h2>
-                <ul>
+                <ToDoList>
                     {tasks.map(task => <ToDoItem task={task} key={task} handleEdit={handleEdit} handleDelete={handleDelete}/>)}
-                </ul>
+                </ToDoList>
             </section>
 
             <section>
