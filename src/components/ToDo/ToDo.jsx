@@ -54,6 +54,14 @@ const ToDo = () => {
         setTasks(newTasks);
     };
 
+    const deleteSelection = () => {
+        const list = document.getElementsByClassName('listItem');
+        const items = [...list]
+        const itemsFiltered = items.filter(item => item.children[0].checked === false);
+        const newTasks = itemsFiltered.map(item => item.children[1].innerHTML);
+        setTasks(newTasks);
+    };
+
     return (
         <div>
             <h1>To Do List</h1>
@@ -64,6 +72,8 @@ const ToDo = () => {
                     {tasks.map(task => <ToDoItem task={task} key={task} handleEdit={handleEdit} handleDelete={handleDelete}/>)}
                 </ToDoList>
             </section>
+                    
+            <button onClick={() => deleteSelection()}>Delete Selected</button>
 
             <section>
                 <form onSubmit={(e) => handleSubmit(e)}>

@@ -2,7 +2,7 @@ import React from 'react';
 
 const ToDoItem = ({ task, handleEdit, handleDelete }) => {
     return (
-        <div
+        <div className='listItem'
         style={{
             display: "flex",
             width: "300px",
