@@ -2,38 +2,29 @@ import React, { useState } from 'react';
 import { ToDoList } from '../ToDoList/ToDoList';
 import { ToDoItem } from '../ToDoItem/ToDoItem';
 
-// estado = tareas[]
-// estado = form {}
-// evento = submit -> deberia agregar la tarea al array de tareas
-
-/* 
-    tareas.map((tarea) => {
-        return (
-            <div>
-                algo
-            </div>
-        )
-    })
-*/
+const INITIAL_FORM_STATE = {
+    id: null,
+    title: "",
+    isChecked: false,
+    isCompleted: false
+};
 
 const ToDo = () => {
-    const [tasks, setTasks] = useState([])
-    const [form, setForm] = useState({
-        task: ""
-    });
+    const [tasks, setTasks] = useState([]);
+    const [form, setForm] = useState(INITIAL_FORM_STATE);
     
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setForm({
-            [name]: value
-        });
+        setForm({...form, [name]: value});
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let tasksList = null;
-        const hasTask = tasks.includes(form.task);
-        !hasTask ? (tasksList = [...tasks, form.task], setTasks(tasksList)) : alert('tarea ya agregada');
+        // Comprobando si la nueva tarea ya esta incluida en la lista de tareas (igualando ambos string a lower case y eliminando todos los espacios)
+        const hasTask = tasks.find(task => task.title.toLowerCase().replace(/ /g, "") == form.title.toLowerCase().replace(/ /g, ""));
+        // Si la nueva tarea esta repetida enviamos una alerta (cambiar a un mensaje personalizado); sino, se encarga de actualizar la lista con la nueva tarea
+        hasTask ? alert("Esta repetida") : setTasks([...tasks, {...form, id: window.crypto.randomUUID()}]);
+        setForm(INITIAL_FORM_STATE)
     };
 
     const handleEdit = (param) => {
@@ -69,7 +60,7 @@ const ToDo = () => {
             <section>
                 <h2>List</h2>
                 <ToDoList>
-                    {tasks.map(task => <ToDoItem task={task} key={task} handleEdit={handleEdit} handleDelete={handleDelete}/>)}
+                    {tasks.map(task => <ToDoItem key={task.id} id={task.id} title={task.title} isChecked={task.isChecked} isCompleted={task.isCompleted} />)}
                 </ToDoList>
             </section>
                     
@@ -77,7 +68,7 @@ const ToDo = () => {
 
             <section>
                 <form onSubmit={(e) => handleSubmit(e)}>
-                    <input type="text" name="task" id="task" value={form.task} onChange={(e) => handleChange(e)}/>
+                    <input type="text" name="title" id="title" value={form.title} onChange={(e) => handleChange(e)}/>
                     <button type='submit'>Add</button>
                 </form>
             </section>

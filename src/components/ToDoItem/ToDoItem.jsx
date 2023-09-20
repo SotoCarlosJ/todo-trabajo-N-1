@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ToDoItem = ({ task, handleEdit, handleDelete }) => {
+const ToDoItem = ({ id, title, isChecked, isCompleted }) => {
     return (
         <div className='listItem'
         style={{
@@ -12,8 +12,8 @@ const ToDoItem = ({ task, handleEdit, handleDelete }) => {
             borderRadius: "5px",
             padding: "5px"              
             }}>
-            <input type="checkbox" name={`${task}-checkbox`} id={`${task}-checkbox`}/>
-            <li>{task}</li>
+            <input type="checkbox" name={`${title}-checkbox`} id={`${title}-checkbox`}/>
+            <li>{title}</li>
             <div style={{
                 display: "flex",
                 flexDirection: "column"
