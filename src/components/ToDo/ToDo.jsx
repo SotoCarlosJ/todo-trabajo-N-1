@@ -27,6 +27,13 @@ const ToDo = () => {
         setForm(INITIAL_FORM_STATE)
     };
 
+    const handleDelete = (param) => {
+        const itemIndex = tasks.findIndex(task => task.id == param);
+        const newTasks = [...tasks];
+        newTasks.splice(itemIndex, 1);
+        setTasks(newTasks);
+    };
+
     const handleEdit = (param) => {
         let taskEdit = prompt('Edita la tarea desde aca');
         const hasTask = tasks.includes(taskEdit);
@@ -36,13 +43,6 @@ const ToDo = () => {
             newTasks[taskIndex] = taskEdit;
             setTasks(newTasks);
         } else alert('tarea repetida');
-    };
-
-    const handleDelete = (param) => {
-        const taskIndex = tasks.indexOf(param);
-        const newTasks = [...tasks];
-        newTasks.splice(taskIndex, 1);
-        setTasks(newTasks);
     };
 
     const deleteSelection = () => {
@@ -60,7 +60,7 @@ const ToDo = () => {
             <section>
                 <h2>List</h2>
                 <ToDoList>
-                    {tasks.map(task => <ToDoItem key={task.id} id={task.id} title={task.title} isChecked={task.isChecked} isCompleted={task.isCompleted} />)}
+                    {tasks.map(task => <ToDoItem key={task.id} id={task.id} title={task.title} isChecked={task.isChecked} isCompleted={task.isCompleted} handleDelete={handleDelete}/>)}
                 </ToDoList>
             </section>
                     
