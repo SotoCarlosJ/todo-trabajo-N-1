@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ToDoItem = ({ id, title, isChecked, isCompleted, handleDelete }) => {
+const ToDoItem = ({ id, title, isChecked, isCompleted, handleDelete, handleEdit }) => {
     return (
         <div className='listItem'
         style={{
@@ -19,7 +19,7 @@ const ToDoItem = ({ id, title, isChecked, isCompleted, handleDelete }) => {
                 flexDirection: "column"
             }}>
                 <button onClick={() => handleDelete(id)}>Delete</button>
-                <button onClick={() => handleEdit(task)}>Edit</button>
+                <button onClick={() => handleEdit(title)}>Edit</button>
             </div>
         </div>      
     )
