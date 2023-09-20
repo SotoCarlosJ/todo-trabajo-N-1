@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { ToDoTitle } from '../ToDoTitle/ToDoTitle';
 import { ToDoList } from '../ToDoList/ToDoList';
 import { ToDoItem } from '../ToDoItem/ToDoItem';
+import { ToDoForm } from '../ToDoForm/ToDoForm';
+import { ToDoButtons } from '../ToDoButtons/ToDoButtons';
 
 const INITIAL_FORM_STATE = {
     id: null,
@@ -10,14 +13,17 @@ const INITIAL_FORM_STATE = {
 };
 
 const ToDo = () => {
+    // Estados
     const [tasks, setTasks] = useState([]);
     const [form, setForm] = useState(INITIAL_FORM_STATE);
     
+    // Funcion para manejar la entrada de valores del input 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setForm({...form, [name]: value});
     };
 
+    // Funcion para controlar el botton de submit del form
     const handleSubmit = (e) => {
         e.preventDefault();
         // Comprobando si la nueva tarea ya esta incluida en la lista de tareas (igualando ambos string a lower case y eliminando todos los espacios)
@@ -27,6 +33,7 @@ const ToDo = () => {
         setForm(INITIAL_FORM_STATE)
     };
 
+    // Funcion para eliminar una tarea
     const handleDelete = (param) => {
         const itemIndex = tasks.findIndex(task => task.id == param);
         const newTasks = [...tasks];
@@ -34,6 +41,7 @@ const ToDo = () => {
         setTasks(newTasks);
     };
 
+    // Funcion para editar una tarea
     const handleEdit = (param) => {
         let taskEdit = prompt('Edita la tarea desde aca');
         const hasTask = tasks.includes(taskEdit);
@@ -45,33 +53,29 @@ const ToDo = () => {
         } else alert('tarea repetida');
     };
 
+    // Funcion para eliminar un grupo de tareas seleccionadas
     const deleteSelection = () => {
-        const list = document.getElementsByClassName('listItem');
-        const items = [...list]
-        const itemsFiltered = items.filter(item => item.children[0].checked === false);
-        const newTasks = itemsFiltered.map(item => item.children[1].innerHTML);
-        setTasks(newTasks);
+        console.log('Tareas eliminadas');
+        // const list = document.getElementsByClassName('listItem');
+        // const items = [...list]
+        // const itemsFiltered = items.filter(item => item.children[0].checked === false);
+        // const newTasks = itemsFiltered.map(item => item.children[1].innerHTML);
+        // setTasks(newTasks);
+    };
+
+    // Funcion para actualizar a completada un grupo de tareas
+    const completeSelection = () => {
+        console.log('Tareas completada');
     };
 
     return (
         <div>
-            <h1>To Do List</h1>
-
-            <section>
-                <h2>List</h2>
-                <ToDoList>
-                    {tasks.map(task => <ToDoItem key={task.id} id={task.id} title={task.title} isChecked={task.isChecked} isCompleted={task.isCompleted} handleDelete={handleDelete}/>)}
-                </ToDoList>
-            </section>
-                    
-            <button onClick={() => deleteSelection()}>Delete Selected</button>
-
-            <section>
-                <form onSubmit={(e) => handleSubmit(e)}>
-                    <input type="text" name="title" id="title" value={form.title} onChange={(e) => handleChange(e)}/>
-                    <button type='submit'>Add</button>
-                </form>
-            </section>
+            <ToDoTitle />
+            <ToDoList>
+                {tasks.map(task => <ToDoItem key={task.id} id={task.id} title={task.title} isChecked={task.isChecked} isCompleted={task.isCompleted} handleDelete={handleDelete}/>)}
+            </ToDoList>
+            <ToDoForm handleSubmit={handleSubmit} title={form.title} handleChange={handleChange}/>
+            <ToDoButtons deleteSelection={deleteSelection} completeSelection={completeSelection}/>
         </div>
     )
 };

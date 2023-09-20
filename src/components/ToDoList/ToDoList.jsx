@@ -2,7 +2,10 @@ import React from 'react';
 
 const ToDoList = ({children}) => {
     return (
-        <ul>{children}</ul>
+        <section>
+            <h2>Tasks List</h2>
+            <ul>{children}</ul>
+        </section>
     )
 };
 
