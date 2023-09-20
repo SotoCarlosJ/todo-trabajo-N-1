@@ -45,15 +45,18 @@ const ToDo = () => {
     const handleEdit = (param) => {
         // Ingresando el nuevo titulo por medio de un prompt (investigar como cambiar desde el li)
         let newTitle = prompt('Edita la tarea desde aca');
-        // Comprobando si el nuevo titulo de la tarea esta repetido
-        const hasTask = tasks.find(task => task.title.toLowerCase().replace(/ /g, "") == newTitle.toLowerCase().replace(/ /g, ""));
-        // Si el nuevo titulo de la tarea esta repetido enviamos una alerta (cambiar a un mensaje personalizado); sino, se encarga de actualizar la lista con el nuevo titulo
-        if(!hasTask) {
-            const taskID = tasks.findIndex(task => task.title == param);
-            const newTasks = [...tasks];
-            newTasks[taskID].title = newTitle;
-            setTasks(newTasks);
-        } else alert('tarea repetida');
+        // Eliminando el error que muestra la consola si se cancela el prompt -> consular sobre esto en clases
+        if(newTitle) {
+            // Comprobando si el nuevo titulo de la tarea esta repetido
+            const hasTask = tasks.find(task => task.title.toLowerCase().replace(/ /g, "") == newTitle.toLowerCase().replace(/ /g, ""));
+            // Si el nuevo titulo de la tarea esta repetido enviamos una alerta (cambiar a un mensaje personalizado); sino, se encarga de actualizar la lista con el nuevo titulo
+            if(!hasTask) {
+                const taskID = tasks.findIndex(task => task.title == param);
+                const newTasks = [...tasks];
+                newTasks[taskID].title = newTitle;
+                setTasks(newTasks);
+            } else alert('tarea repetida');
+        };
     };
 
     // Funcion para eliminar un grupo de tareas seleccionadas
