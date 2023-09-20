@@ -59,14 +59,19 @@ const ToDo = () => {
         };
     };
 
+    // Funcion para manejar el cambio del checkbox
+    const handleCheckbox = (param) => {
+        const taskID = tasks.findIndex(task => task.id == param);
+        const newTasks = [...tasks];
+        newTasks[taskID].isChecked ? newTasks[taskID].isChecked = false : newTasks[taskID].isChecked = true;
+        setTasks(newTasks);
+    };
+
     // Funcion para eliminar un grupo de tareas seleccionadas
     const deleteSelection = () => {
-        console.log('Tareas eliminadas');
-        // const list = document.getElementsByClassName('listItem');
-        // const items = [...list]
-        // const itemsFiltered = items.filter(item => item.children[0].checked === false);
-        // const newTasks = itemsFiltered.map(item => item.children[1].innerHTML);
-        // setTasks(newTasks);
+        // Filtrando tareas que tengan el checkbox desactivado
+        const remainingTasks = tasks.filter(task => task.isChecked == false);
+        setTasks(remainingTasks);
     };
 
     // Funcion para actualizar a completada un grupo de tareas
@@ -78,7 +83,7 @@ const ToDo = () => {
         <div>
             <ToDoTitle />
             <ToDoList>
-                {tasks.map(task => <ToDoItem key={task.id} id={task.id} title={task.title} isChecked={task.isChecked} isCompleted={task.isCompleted} handleDelete={handleDelete} handleEdit={handleEdit}/>)}
+                {tasks.map(task => <ToDoItem key={task.id} id={task.id} title={task.title} isChecked={task.isChecked} isCompleted={task.isCompleted} handleDelete={handleDelete} handleEdit={handleEdit} handleCheckbox={handleCheckbox}/>)}
             </ToDoList>
             <ToDoForm handleSubmit={handleSubmit} title={form.title} handleChange={handleChange}/>
             <ToDoButtons deleteSelection={deleteSelection} completeSelection={completeSelection}/>

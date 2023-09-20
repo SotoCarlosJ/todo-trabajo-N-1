@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ToDoItem = ({ id, title, isChecked, isCompleted, handleDelete, handleEdit }) => {
+const ToDoItem = ({ id, title, isChecked, isCompleted, handleDelete, handleEdit, handleCheckbox }) => {
     return (
         <div className='listItem'
         style={{
@@ -12,7 +12,7 @@ const ToDoItem = ({ id, title, isChecked, isCompleted, handleDelete, handleEdit 
             borderRadius: "5px",
             padding: "5px"              
             }}>
-            <input type="checkbox" name={`${title}-checkbox`} id={`${title}-checkbox`}/>
+            <input type="checkbox" name={`${title}-checkbox`} id={`${title}-checkbox`} checked={isChecked ? true : false} onChange={() => handleCheckbox(id)}/>
             <li>{title}</li>
             <div style={{
                 display: "flex",
