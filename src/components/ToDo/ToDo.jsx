@@ -76,7 +76,14 @@ const ToDo = () => {
 
     // Funcion para actualizar a completada un grupo de tareas
     const completeSelection = () => {
-        console.log('Tareas completada');
+        const newTasks = [...tasks];
+        // Filtro tareas seleccionadas
+        const tasksSelected = tasks.filter(task => task.isChecked === true);
+        // Hago un map para conseguir el id de cada tarea seleccionada
+        const tasksID = tasksSelected.map(task => newTasks.indexOf(task));
+        // Cambio a "true" la propiedad isCompleted de las tareas seleccionadas en la copia de la lista de tareas
+        tasksID.forEach(id => newTasks[id].isCompleted = true);
+        setTasks(newTasks);
     };
 
     return (

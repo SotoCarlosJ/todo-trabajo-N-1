@@ -12,8 +12,8 @@ const ToDoItem = ({ id, title, isChecked, isCompleted, handleDelete, handleEdit,
             borderRadius: "5px",
             padding: "5px"              
             }}>
-            <input type="checkbox" name={`${title}-checkbox`} id={`${title}-checkbox`} checked={isChecked ? true : false} onChange={() => handleCheckbox(id)}/>
-            <li>{title}</li>
+            <input type="checkbox" name={title} id={id} checked={isChecked} onChange={() => handleCheckbox(id)}/>
+            <li className={isCompleted ? "completed" : undefined}>{title}</li>
             <div style={{
                 display: "flex",
                 flexDirection: "column"
