@@ -4,6 +4,7 @@ import { ToDoList } from '../ToDoList/ToDoList';
 import { ToDoItem } from '../ToDoItem/ToDoItem';
 import { ToDoForm } from '../ToDoForm/ToDoForm';
 import { ToDoButtons } from '../ToDoButtons/ToDoButtons';
+import './Todo.css'
 
 const INITIAL_FORM_STATE = {
     id: null,
@@ -87,12 +88,12 @@ const ToDo = () => {
     };
 
     return (
-        <div>
+        <div className='todoApp'>
             <ToDoTitle />
+            <ToDoForm handleSubmit={handleSubmit} title={form.title} handleChange={handleChange}/>
             <ToDoList>
                 {tasks.map(task => <ToDoItem key={task.id} id={task.id} title={task.title} isChecked={task.isChecked} isCompleted={task.isCompleted} handleDelete={handleDelete} handleEdit={handleEdit} handleCheckbox={handleCheckbox}/>)}
             </ToDoList>
-            <ToDoForm handleSubmit={handleSubmit} title={form.title} handleChange={handleChange}/>
             <ToDoButtons deleteSelection={deleteSelection} completeSelection={completeSelection}/>
         </div>
     )
